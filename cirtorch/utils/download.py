@@ -53,19 +53,19 @@ def download_test(data_dir):
                     src_file = os.path.join(src_dir, dl_file)
                     dst_file = os.path.join(dst_dir, dl_file)
                     print('>> Downloading dataset {} archive {}...'.format(dataset, dl_file))
-                    os.system('wget {} -O {}'.format(src_file, dst_file))
+                    os.system('wget "{}" -O "{}"'.format(src_file, dst_file))
                     print('>> Extracting dataset {} archive {}...'.format(dataset, dl_file))
                     # create tmp folder
                     dst_dir_tmp = os.path.join(dst_dir, 'tmp')
-                    os.system('mkdir {}'.format(dst_dir_tmp))
+                    os.system('mkdir "{}"'.format(dst_dir_tmp))
                     # extract in tmp folder
-                    os.system('tar -zxf {} -C {}'.format(dst_file, dst_dir_tmp))
+                    os.system('tar -zxf "{}" -C "{}"'.format(dst_file, dst_dir_tmp))
                     # remove all (possible) subfolders by moving only files in dst_dir
-                    os.system('find {} -type f -exec mv -i {{}} {} \\;'.format(dst_dir_tmp, dst_dir))
+                    os.system('find "{}" -type f -exec mv -i "{{}}" "{}" \\;'.format(dst_dir_tmp, dst_dir))
                     # remove tmp folder
-                    os.system('rm -rf {}'.format(dst_dir_tmp))
+                    os.system('rm -rf "{}"'.format(dst_dir_tmp))
                     print('>> Extracted, deleting dataset {} archive {}...'.format(dataset, dl_file))
-                    os.system('rm {}'.format(dst_file))
+                    os.system('rm "{}"'.format(dst_file))
 
             # for roxford and rparis just make sym links
             elif dataset == 'roxford5k' or dataset == 'rparis6k':
@@ -73,7 +73,7 @@ def download_test(data_dir):
                 dataset_old = dataset[1:]
                 dst_dir_old = os.path.join(datasets_dir, dataset_old, 'jpg')
                 os.mkdir(os.path.join(datasets_dir, dataset))
-                os.system('ln -s {} {}'.format(dst_dir_old, dst_dir))
+                os.system('ln -s "{}" "{}"'.format(dst_dir_old, dst_dir))
                 print('>> Created symbolic link from {} jpg to {} jpg'.format(dataset_old, dataset))
 
 
@@ -84,7 +84,7 @@ def download_test(data_dir):
         gnd_dst_file = os.path.join(gnd_dst_dir, gnd_dl_file)
         if not os.path.exists(gnd_dst_file):
             print('>> Downloading dataset {} ground truth file...'.format(dataset))
-            os.system('wget {} -O {}'.format(gnd_src_file, gnd_dst_file))
+            os.system('wget "{}" -O "{}"'.format(gnd_src_file, gnd_dst_file))
 
 
 def download_train(data_dir):
@@ -116,18 +116,18 @@ def download_train(data_dir):
         print('>> Image directory does not exist. Creating: {}'.format(dst_dir))
         os.makedirs(dst_dir)
         print('>> Downloading ims.tar.gz...')
-        os.system('wget {} -O {}'.format(src_file, dst_file))
+        os.system('wget "{}" -O "{}"'.format(src_file, dst_file))
         print('>> Extracting {}...'.format(dst_file))
-        os.system('tar -zxf {} -C {}'.format(dst_file, dst_dir))
+        os.system('tar -zxf "{}" -C "{}"'.format(dst_file, dst_dir))
         print('>> Extracted, deleting {}...'.format(dst_file))
-        os.system('rm {}'.format(dst_file))
+        os.system('rm "{}"'.format(dst_file))
 
     # Create symlink for train/retrieval-SfM-30k/ 
     dst_dir_old = os.path.join(datasets_dir, 'retrieval-SfM-120k', 'ims')
     dst_dir = os.path.join(datasets_dir, 'retrieval-SfM-30k', 'ims')
     if not os.path.isdir(dst_dir):
         os.makedirs(os.path.join(datasets_dir, 'retrieval-SfM-30k'))
-        os.system('ln -s {} {}'.format(dst_dir_old, dst_dir))
+        os.system('ln -s "{}" "{}"'.format(dst_dir_old, dst_dir))
         print('>> Created symbolic link from retrieval-SfM-120k/ims to retrieval-SfM-30k/ims')
 
     # Download db files
@@ -149,4 +149,4 @@ def download_train(data_dir):
             dst_file = os.path.join(dst_dir, dl_files[i])
             if not os.path.isfile(dst_file):
                 print('>> DB file {} does not exist. Downloading...'.format(dl_files[i]))
-                os.system('wget {} -O {}'.format(src_file, dst_file))
+                os.system('wget "{}" -O "{}"'.format(src_file, dst_file))

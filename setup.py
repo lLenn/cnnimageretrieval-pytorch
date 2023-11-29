@@ -17,7 +17,7 @@ setup(
     packages=find_packages(),
     keywords=["machine learning", "cnn", "computer vision"],
     install_requires=[
-        "torch>=1.0.0,<1.4.0",
+        "torch>1.4.0",
         "torchvision",
     ],
     classifiers=[
